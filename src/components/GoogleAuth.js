@@ -12,7 +12,8 @@ class GoogleAuth extends React.Component {
         })
         .then(() => {
           this.auth = window.gapi.auth2.getAuthInstance();
-          this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+          this.onAuthChange();
+          this.auth.isSignedIn.listen(this.onAuthChange);
         });
     });
   }
@@ -21,14 +22,37 @@ class GoogleAuth extends React.Component {
   // gapi.load("client:auth2")と書くことで、clientモジュールとauth2モジュールを同時に取得できる。
   //　callback関数を呼び出すと、promiseオブジェクトが返ってくる。
   //scopeはアクセストークンに付与するアクセス権の範囲を制限する手段
+  // listenはloginの状態が変更したらその中のcallback関数を呼び出す。
+
+  onAuthChange = () => {
+    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+  };
+
+  onSignIn = () => {
+    this.auth.signIn();
+  };
+
+  onSignOut = () => {
+    this.auth.signOut();
+  };
 
   renderAuthButton() {
     if (this.state.isSignedIn === null) {
-      return <div>null</div>;
+      return null;
     } else if (this.state.isSignedIn) {
-      return <div>True</div>;
+      return (
+        <button onClick={this.onSignOut} className="ui red google button">
+          <i className="google icon" />
+          Sign Out
+        </button>
+      );
     } else {
-      return <div>False</div>;
+      return (
+        <button onClick={this.onSignIn} className="ui primary google button">
+          <i className="google icon" />
+          Sign In
+        </button>
+      );
     }
   }
 
