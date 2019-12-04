@@ -10,7 +10,7 @@ import ItemList from "./items/ItemList";
 
 const App = () => {
   return (
-    <div className="ui container">
+    <div className="ui container" style={{ marginTop: "5px" }}>
       <BrowserRouter>
         <Header />
         <Route path="/" exact component={ItemList} />
