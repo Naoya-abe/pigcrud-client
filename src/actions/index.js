@@ -1,3 +1,4 @@
+import items from "../apis/items";
 import { SIGN_IN, SIGN_OUT } from "./types";
 
 export const signIn = () => {
@@ -12,4 +13,8 @@ export const signOut = () => {
     type: SIGN_OUT,
     payload: false
   };
+};
+
+export const createItems = formValues => async dispatch => {
+  items.post("/items", formValues);
 };
