@@ -2,8 +2,6 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 
 class ItemCreate extends React.Component {
-  //エラーメッセージがでないのはSemantiUIのせい
-  //SemantiUIのclass名をformからform errorに変更すれば大丈夫。
   renderError({ error, touched }) {
     if (error && touched) {
       return (
@@ -13,7 +11,7 @@ class ItemCreate extends React.Component {
       );
     }
   }
-  // さらにリファクタリング
+
   renderInput = ({ input, label, placeholder, meta }) => {
     const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (
@@ -24,21 +22,6 @@ class ItemCreate extends React.Component {
       </div>
     );
   };
-
-  // ちょっとリファクタリング
-  // renderInput({ input }) {
-  //   return <input onChange={input.onChange} value={input.value} />;
-  // }
-
-  // オリジナル
-  // renderInput(formProps) {
-  //   return (
-  //     <input
-  //       onChange={formProps.input.onChange}
-  //       value={formProps.input.value}
-  //     />
-  //   );
-  // }
 
   onSubmit(formValues) {
     console.log(formValues);
