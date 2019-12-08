@@ -1,5 +1,5 @@
 import items from "../apis/items";
-import { SIGN_IN, SIGN_OUT } from "./types";
+import { SIGN_IN, SIGN_OUT, CREATE_ITEM } from "./types";
 
 export const signIn = () => {
   return {
@@ -16,5 +16,6 @@ export const signOut = () => {
 };
 
 export const createItems = formValues => async dispatch => {
-  items.post("/items", formValues);
+  const response = await items.post("/items", formValues);
+  dispatch({ type: CREATE_ITEM, payload: response.data });
 };
