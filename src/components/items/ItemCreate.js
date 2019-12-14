@@ -32,24 +32,27 @@ class ItemCreate extends React.Component {
 
   render() {
     return (
-      <form
-        onSubmit={this.props.handleSubmit(this.onSubmit)}
-        className="ui form error"
-      >
-        <Field
-          name="title"
-          component={this.renderInput}
-          label="Title"
-          placeholder="Enter title"
-        />
-        <Field
-          name="description"
-          component={this.renderInput}
-          label="Description"
-          placeholder="Enter description"
-        />
-        <button className="ui button primary">Submit</button>
-      </form>
+      <React.Fragment>
+        <h2 style={{ marginTop: 0 }}>Item Create</h2>
+        <form
+          onSubmit={this.props.handleSubmit(this.onSubmit)}
+          className="ui form error"
+        >
+          <Field
+            name="title"
+            component={this.renderInput}
+            label="Title"
+            placeholder="Enter title"
+          />
+          <Field
+            name="description"
+            component={this.renderInput}
+            label="Description"
+            placeholder="Enter description"
+          />
+          <button className="ui button primary">Submit</button>
+        </form>
+      </React.Fragment>
     );
   }
 }

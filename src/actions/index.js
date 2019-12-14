@@ -9,17 +9,16 @@ import {
   EDIT_ITEM
 } from "./types";
 
-export const signIn = () => {
+export const signIn = userId => {
   return {
     type: SIGN_IN,
-    payload: true
+    payload: userId
   };
 };
 
 export const signOut = () => {
   return {
-    type: SIGN_OUT,
-    payload: false
+    type: SIGN_OUT
   };
 };
 
@@ -28,22 +27,22 @@ export const createItems = formValues => async dispatch => {
   dispatch({ type: CREATE_ITEM, payload: response.data });
 };
 
-export const fetchStreams = () => async dispatch => {
+export const fetchItems = () => async dispatch => {
   const response = await items.get("/items");
   dispatch({ type: FETCH_ITEMS, payload: response.data });
 };
 
-export const fetchStream = id => async dispatch => {
+export const fetchItem = id => async dispatch => {
   const response = await items.get(`/items/${id}`);
   dispatch({ type: FETCH_ITEM, payload: response.data });
 };
 
-export const editStream = (id, formValues) => async dispatch => {
+export const editItem = (id, formValues) => async dispatch => {
   const response = await items.put(`/items/${id}`, formValues);
   dispatch({ type: EDIT_ITEM, payload: response.data });
 };
 
-export const deleteStream = id => async dispatch => {
+export const deleteItem = id => async dispatch => {
   await items.delete(`/items/${id}`);
   dispatch({ type: DELETE_ITEM, payload: id });
 };
