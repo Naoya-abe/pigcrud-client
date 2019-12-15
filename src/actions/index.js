@@ -1,4 +1,5 @@
 import items from "../apis/items";
+import history from "../history";
 import {
   SIGN_IN,
   SIGN_OUT,
@@ -22,9 +23,11 @@ export const signOut = () => {
   };
 };
 
-export const createItems = formValues => async dispatch => {
-  const response = await items.post("/items", formValues);
+export const createItem = formValues => async (dispatch, getState) => {
+  const { userId } = getState().auth;
+  const response = await items.post("/items", { ...formValues, userId });
   dispatch({ type: CREATE_ITEM, payload: response.data });
+  history.push("/");
 };
 
 export const fetchItems = () => async dispatch => {
@@ -38,8 +41,10 @@ export const fetchItem = id => async dispatch => {
 };
 
 export const editItem = (id, formValues) => async dispatch => {
-  const response = await items.put(`/items/${id}`, formValues);
+  // const { userId } = getState().auth;
+  const response = await items.patch(`/items/${id}`, formValues);
   dispatch({ type: EDIT_ITEM, payload: response.data });
+  history.push("/");
 };
 
 export const deleteItem = id => async dispatch => {
