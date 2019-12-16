@@ -1,27 +1,38 @@
 import React from "react";
 import Modal from "../Modal";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import history from "../../history";
 import { fetchItem, deleteItem } from "../../actions";
 
 class ItemDelete extends React.Component {
   componentDidMount() {
-    this.props.fetchItem(this.props.match.params.id);
+    const { id } = this.props.match.params;
+    this.props.fetchItem(id);
   }
   modalActions = () => {
+    const { id } = this.props.match.params;
     return (
       <React.Fragment>
         <button
-          onClick={() => this.props.deleteItem(this.props.match.params.id)}
+          onClick={() => this.props.deleteItem(id)}
           className="ui button negative"
         >
           Delete
         </button>
-        <button onClick={() => history.push("/")} className="ui button cancel">
+        <Link to={"/"} className="ui button cancel">
           Cancel
-        </button>
+        </Link>
       </React.Fragment>
     );
+  };
+
+  modalContent = () => {
+    if (!this.props.item) {
+      return "Are you sure ?";
+    } else {
+      return `Are you sure you wanna delete the item with title: ${this.props.item.title}`;
+    }
   };
   render() {
     if (!this.props.item) {
@@ -29,13 +40,9 @@ class ItemDelete extends React.Component {
     }
     return (
       <div>
-        ItemDelete
         <Modal
           title="Delete Item"
-          content={{
-            title: this.props.item.title,
-            description: this.props.item.description
-          }}
+          content={this.modalContent()}
           actions={this.modalActions()}
           onDismiss={() => history.push("/")}
         />
