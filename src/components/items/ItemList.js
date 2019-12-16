@@ -15,7 +15,9 @@ class ItemList extends React.Component {
           <Link to={`/items/edit/${item.id}`} className="ui button primary">
             Edit
           </Link>
-          <button className="ui button negative">Delete</button>
+          <Link to={`/items/delete/${item.id}`} className="ui button negative">
+            Delete
+          </Link>
         </div>
       );
     }

@@ -41,7 +41,6 @@ export const fetchItem = id => async dispatch => {
 };
 
 export const editItem = (id, formValues) => async dispatch => {
-  // const { userId } = getState().auth;
   const response = await items.patch(`/items/${id}`, formValues);
   dispatch({ type: EDIT_ITEM, payload: response.data });
   history.push("/");
@@ -50,4 +49,5 @@ export const editItem = (id, formValues) => async dispatch => {
 export const deleteItem = id => async dispatch => {
   await items.delete(`/items/${id}`);
   dispatch({ type: DELETE_ITEM, payload: id });
+  history.push("/");
 };

@@ -17,7 +17,7 @@ const App = () => {
         <Header />
         <Route path="/" exact component={ItemList} />
         <Route path="/items/new" component={ItemCreate} />
-        <Route path="/items/delete" component={ItemDelete} />
+        <Route path="/items/delete/:id" component={ItemDelete} />
         <Route path="/items/detail" component={ItemDetail} />
         <Route path="/items/edit/:id" component={ItemEdit} />
       </Router>
